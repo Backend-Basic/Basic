@@ -1,3 +1,15 @@
+## Cycle
+
+Every Wednesday 23:03
+
+---
+
+## Method
+
+Pick and Present
+
+---
+
 ## 숏스 코드 리뷰
 
 - 상수 값은 관련된 상수 값끼리 묶어서 파일로 관리하기
