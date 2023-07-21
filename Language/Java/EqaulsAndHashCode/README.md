@@ -66,7 +66,7 @@ public static boolean equals(@Nullable Object a, @Nullable Object b) {
 
 `hashCode()`는 이름 그대로 hash code를 반환하는데, 이 코드를 통해서 **객체를 식별**합니다.
 
-### 🤔 hash code == memroy address?
+### 🤔 Hash Code == Memroy Address?
 
 객체를 식별한다고 이야기하면 메모리 주소가 떠오를 수 있습니다.
 
@@ -100,7 +100,7 @@ System.out.println("point1.equals(point2) : " + point1.equals(point2));
 System.out.println("point1.hashCode() == point2.hashCode() : " + (point1.hashCode() == point2.hashCode()));
 ```
 
-<사진>
+![image](https://github.com/Backend-Basic/Basic/assets/81742959/c754942a-6baf-4d84-9201-71d10f44bd47)
 
 위 예시를 통해서 **hash code는 메모리 주소가 아니다**를 알 수 있습니다.
 
@@ -112,7 +112,7 @@ System.out.println("point1.hashCode() == point2.hashCode() : " + (point1.hashCod
 
 우리가 자주 사용하는 HashMap, HashSet, HashTable 등에서 사용합니다.
 
-다음 글에서 자세하게 내부적으로 어떻게 찾고, 값이 만들어지는지 설명하겠습니다.
+다른 글에서 자세하게 내부적으로 어떻게 찾고, 값이 만들어지는지 설명하겠습니다.
 
 ## 🧐 왜 같이 재정의할까?
 
@@ -121,6 +121,8 @@ System.out.println("point1.hashCode() == point2.hashCode() : " + (point1.hashCod
 인텔리제이의 `Generate` 기능도 두 메서드를 같이 재정의합니다.
 
 왜 같이 재정의해야 하는걸까요??
+
+<br>
 
 우선 `equals()`를 재정의해야 하는 이유는 `Object.equals()`는 동일성 비교를 하기 때문입니다.
 
@@ -193,13 +195,15 @@ public int hashCode() {
 
 Hash 자료구조는 다음과 같은 순서를 기반으로 동작합니다.
 
-<그림>
+![image](https://github.com/Backend-Basic/Basic/assets/81742959/d8b39404-364e-4af0-ba22-061889966b9a)
 
 먼저 `hashCode()`를 호출해서 같은지 비교하고, 같다면 `equals()`를 호출해서 또 한 번 검사합니다.
 
 `equals()`만 재정의한 경우, `hashCode()`의 값이 다르므로 `HashSet`에서는 다르다고 판단했습니다.
 
 반대의 경우, `hashCode()`는 같지만 재정의하지 않은 `equals()`는 동일성 비교를 하므로 주소값이 달라서 `HashSet`이 다른 객체라고 판단하였습니다.
+
+<br>
 
 두 메서드를 같이 정의하지 않으면 **코드가 어떻게 동작할지 예측할 수 없습니다.**
 
@@ -211,7 +215,7 @@ Hash 자료구조는 다음과 같은 순서를 기반으로 동작합니다.
 
 다음 그림은 `equals()`에 작성되어 있는 문서입니다.
 
-<그림>
+![image](https://github.com/Backend-Basic/Basic/assets/81742959/3f05be55-e675-4723-8c8b-6a331ee18fd9)
 
 정리하면 `null`이 아닌 객체 x, y, z에 대해서 다음을 만족해야 합니다.
 1. 반사성 : `x.equals(x)`는 참이다.
@@ -224,10 +228,14 @@ Hash 자료구조는 다음과 같은 순서를 기반으로 동작합니다.
 
 다음 그림은 `hashCode()`에 작성되어 있는 문서입니다.
 
-<그림>
+![image](https://github.com/Backend-Basic/Basic/assets/81742959/efa5455d-7b05-4711-8f6c-dd044f170209)
 
 정리하면 다음과 같습니다.
 1. `equals()`에 사용되는 정보가 변하지 않았다면 `hashCode()`도 같은 값을 반환해야 한다.
 2. `equals()`가 같다고 판단했으면 두 객체의 `hashCode()`는 같아야 한다.
 3. `equals()`가 다르다고 판단했어도 두 객체의 `hashCode()`는 다를 수 있다. (해쉬 충돌)
 
+## 😋 정리
+1. eqauls()는 동등성 비교를 위해서 사용한다.
+2. hashCode()는 객체 식별을 위해서 사용한다.
+3. eqauls()와 hashCode()는 반드시 같이 재정의해야 한다.
